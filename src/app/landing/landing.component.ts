@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
-import {animate, keyframes, style, transition, trigger} from "@angular/animations";
+import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 
 
 interface Section {
@@ -25,10 +25,26 @@ interface SectionWithRectDomData {
         style({opacity: 1, offset: 1.0}),
       ]))),
 
+    ]),
+    trigger('textOpacity', [
+      state('visible', style({
+        opacity: 1
+      })),
+      state('hidden', style({
+        opacity: 0.5
+      })),
+      transition('visible => hidden', animate('100ms ease-out')),
+      transition('hidden => visible', animate('100ms ease-in'))
     ])
+
   ]
 })
 export class LandingComponent implements OnInit {
+  textOpacityState = [
+    'visible',
+    'hidden',
+    'hidden'
+  ]
 
   selectedImage = '1.jpg';
   animationState = 'out';
@@ -67,7 +83,7 @@ export class LandingComponent implements OnInit {
     }
   }
 
-  validateScroll(event: any) {
+  validateScroll(event: any) { 
     this.addStack(event.target.scrollTop);
     const sectionsWithRectDomData: SectionWithRectDomData[] = [];
     this.sections.forEach(i => {
@@ -76,7 +92,7 @@ export class LandingComponent implements OnInit {
 
       // console.log(rect)
       if (rect && (rect.top <= 0 && rect.height - rect.top > (0.3 * rect.height) || (rect.top > 0 && rect.top < 0.7 * rect.height)) && rect.top >= -1 * (rect.height)) {
-        console.log('current section' + i + '  ||| rect.top => ' + rect.top + 'rect.height => ' + rect.height, rect);
+        // console.log('current section' + i + '  ||| rect.top => ' + rect.top + 'rect.height => ' + rect.height, rect);
         const cal = rect.top >= 0 ? rect.height - rect.top : rect.height + rect.top;
         if (cal > (rect.height * 0.3)) {
           sectionsWithRectDomData.push({
@@ -89,14 +105,43 @@ export class LandingComponent implements OnInit {
     })
 
     const result = this.calculateSectionChange(sectionsWithRectDomData)
-
+    console.log(result);
     if (result.image !== this.selectedImage) {
       this.animationState = 'in';
       this.selectedImage = result.image;
+
+      switch(result.image) {
+        case '1.jpg': {
+          this.textOpacityState[0] = 'visible'
+          this.textOpacityState[1] = 'hidden'
+          this.textOpacityState[2] = 'hidden'
+          break;
+        }
+        case '2.jpg': {
+          this.textOpacityState[0] = 'hidden'
+          this.textOpacityState[1] = 'visible'
+          this.textOpacityState[2] = 'hidden'
+          break;
+        }
+        case '3.jpg': {
+          this.textOpacityState[0] = 'hidden'
+          this.textOpacityState[1] = 'hidden'
+          this.textOpacityState[2] = 'visible'
+          break;
+        }
+        default : {
+          this.textOpacityState[0] = 'visible'
+          this.textOpacityState[1] = 'hidden'
+          this.textOpacityState[2] = 'hidden'
+          break;
+        }
+
+      }
+
       setTimeout(() => {
         this.animationState = 'out';
         this.changeDetectorRef.detectChanges();
-      }, 500);
+      }, 1000);
     }
   }
 
@@ -113,4 +158,5 @@ export class LandingComponent implements OnInit {
     }
     return section[0]
   }
+
 }

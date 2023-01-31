@@ -1,13 +1,25 @@
 <div class="header">
   Header
 </div>
-<div class="grid container">
-  <div class="col-6 content">
-    <div class="col-12">
-      <div class="section" id="section1">
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-        some
-        form, by injected humour, or randomised words which don't look even slightly believable. If you are going to
+<div class="bigbox">
+
+  <div class="grid container">
+    <div class="col-6 content">
+      <div class="col-12">
+        <div [@textOpacity]="textOpacityState[0]" class="section" id="section1">
+          <h1>Example Text1</h1>
+        </div>
+        <div [@textOpacity]="textOpacityState[1]" class="section" id="section2">
+          <h1>Example Text2</h1>
+        </div>
+        <div [@textOpacity]="textOpacityState[2]" class="section" id="section3">
+          <h1>Example Text3</h1>
+        </div>
+
+        <!-- <div class="section" id="section1">
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+          some
+          form, by injected humour, or randomised words which don't look even slightly believable. If you are going to
         use
         a
         passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
@@ -20,11 +32,6 @@
         free from repetition, injected humour, or non-characteristic words etc.
       </div>
       <div class="section" id="section2">
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-        some
-        form, by injected humour, or randomised words which don't look even slightly believable. If you are going to
-        use
-        a
         passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
         All
         the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the
@@ -35,7 +42,7 @@
         free from repetition, injected humour, or non-characteristic words etc.
       </div>
       <div class="section" id="section3">
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+        Are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
         some
         form, by injected humour, or randomised words which don't look even slightly believable. If you are going to
         use
@@ -47,14 +54,15 @@
         true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model
         sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
         always
-        free from repetition, injected humour, or non-characteristic words etc.
+      </div> -->
+
       </div>
     </div>
-  </div>
-  <div class="col-6 right-box">
-    <div class="image-container">
-      <div class="bg-box">
-        <img [@fade]="animationState" [src]="'/assets/' + selectedImage" alt="selectedImage">
+    <div class="col-6 right-box">
+      <div class="image-container">
+        <div class="bg-box">
+          <img [@fade]="animationState" [src]="'/assets/' + selectedImage" alt="selectedImage">
+        </div>
       </div>
     </div>
   </div>
